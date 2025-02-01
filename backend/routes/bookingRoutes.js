@@ -2,6 +2,26 @@ const express = require("express");
 const Booking = require("../models/Booking");
 const router = express.Router();
 
+// DELETE route to delete a specific booking
+router.delete('/:id', async (req, res) => {
+  const bookingId = req.params.id;
+
+  try {
+    const deletedBooking = await Booking.findByIdAndDelete(bookingId);
+
+    if (!deletedBooking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.status(200).json({ message: 'Booking deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+module.exports = router;
+
 // Endpoint to create a new booking
 router.post("/book", async (req, res) => {
   try {
