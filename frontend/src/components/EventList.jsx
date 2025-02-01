@@ -6,7 +6,7 @@ const EventList = () => {
   const [events, setEvents] = useState([]);
   const navigate = useNavigate();  // Initialize the navigate function
 
-  // Fetch events from the backend or use mock data
+  // Fetch events from the backend
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -14,12 +14,8 @@ const EventList = () => {
         const response = await axios.get('http://localhost:5000/api/events');
         setEvents(response.data);  // If successful, use the API data
       } catch (error) {
-        // If fetching fails, fall back to mock data
         console.error('Error fetching events:', error);
-        // const eventsData = [
-        //   { id: '', name: '', date: '', location: '' },
-        // ];
-        // setEvents(eventsData);
+        // If fetching fails, you can set fallback/mock data if needed
       }
     };
 
@@ -37,10 +33,10 @@ const EventList = () => {
       <h2>Upcoming Events</h2>
       <ul>
         {events.map((event) => (
-          <li key={event.id}>
+          <li key={event._id}> {/* Use _id from MongoDB */}
             <h3>{event.name}</h3>
-            <p>{event.date} - {event.location}</p>
-            <button onClick={() => handleBooking(event.id)}>Book Now</button>
+            <p>{new Date(event.date).toLocaleDateString()} - {event.location}</p>
+            <button onClick={() => handleBooking(event._id)}>Book Now</button> {/* Pass _id */}
           </li>
         ))}
       </ul>

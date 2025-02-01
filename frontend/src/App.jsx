@@ -9,15 +9,13 @@ import EventList from './components/EventList';
 const App = () => {
   return (
     <Router>
-      <div>
-        <h1>Event Management</h1>
+        
         <Routes>
           <Route path="/" element={<EventList />} />
           <Route path="/bookings" element={<BookingList />} />
           <Route path="/create-event" element={<EventForm />} />
-          <Route path="/book/:eventId" element={<BookingPage />} /> 
-        </Routes>
-      </div>
+          <Route path="/book/:eventId" element={<BookingPage />} />
+          </Routes>
     </Router>
   );
 };

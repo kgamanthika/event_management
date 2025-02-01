@@ -6,6 +6,25 @@ const getEvents = async (req, res) => {
     res.json(events);
 };
 
+// Get a single event by ID
+const Event = require('../models/Event');
+
+
+const getEventById = async (req, res) => {
+    try {
+      const event = await Event.findById(req.params.id);  // Look for the event by the ID
+      if (!event) {
+        return res.status(404).json({ message: "Event not found" });
+      }
+      res.json(event);  // Send event data back to the frontend
+    } catch (error) {
+      console.error("Error fetching event:", error);
+      res.status(500).json({ message: "Server error" });  // Log the error and send 500 status
+    }
+  };
+  
+
+
 // Add a new event
 const addEvent = async (req, res) => {
     const event = new Event(req.body);
@@ -25,4 +44,4 @@ const deleteEvent = async (req, res) => {
     res.json({ message: "Event deleted" });
 };
 
-module.exports = { getEvents, addEvent, updateEvent, deleteEvent };
+module.exports = { getEvents, addEvent, updateEvent, deleteEvent, getEventById };
