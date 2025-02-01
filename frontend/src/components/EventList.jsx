@@ -34,6 +34,10 @@ const EventList = () => {
   const handleShowBookings = () => {
     navigate('/bookings');
   };
+  // Navigate to EventForm page for adding new event
+  const handleAddEvent = () => {
+    navigate('/add-event');
+  };
 
   return (
     <div>
@@ -48,6 +52,7 @@ const EventList = () => {
         ))}
       </ul>
       <button onClick={handleShowBookings}>Show My Bookings</button>
+      <button onClick={handleAddEvent}>Add Event</button> 
     </div>
   );
 };

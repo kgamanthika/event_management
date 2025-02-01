@@ -12,7 +12,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<EventList />} />
           <Route path="/bookings" element={<BookingList />} />
-          <Route path="/create-event" element={<EventForm />} />
+          <Route path="/add-event" element={<EventForm />} />
           </Routes>
     </Router>
   );

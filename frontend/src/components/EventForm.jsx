@@ -1,5 +1,5 @@
-// src/components/EventForm.jsx
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const EventForm = () => {
   const [eventData, setEventData] = useState({
@@ -7,6 +7,7 @@ const EventForm = () => {
     date: '',
     location: ''
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setEventData({ ...eventData, [e.target.name]: e.target.value });
@@ -17,6 +18,11 @@ const EventForm = () => {
     // In a real-world app, send this data to the backend to save the event
     console.log('Event Data:', eventData);
     setEventData({ name: '', date: '', location: '' }); // Clear form
+  };
+
+  // Navigate to EventList page
+  const handleShowEvents = () => {
+    navigate('/');
   };
 
   return (
@@ -58,6 +64,9 @@ const EventForm = () => {
         <br />
         <button type="submit">Create Event</button>
       </form>
+
+      {/* Button to navigate to EventList */}
+      <button onClick={handleShowEvents}>Show Events</button>
     </div>
   );
 };
