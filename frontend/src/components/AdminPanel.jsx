@@ -56,12 +56,16 @@ const AdminPanel = () => {
   const handleShowEvents = () => {
     navigate('/');
   };
-
+ // Navigate to EventForm page for adding new event
+ const handleAddEvent = () => {
+    navigate('/add-event');
+  };
   return (
     <div>
       <h2>Admin Panel</h2>
       <button onClick={handleShowEvents}>Show Events</button>
 
+      <button onClick={handleAddEvent}>Add Event</button>
       <h3>Event List</h3>
       {editEvent ? (
         <div>

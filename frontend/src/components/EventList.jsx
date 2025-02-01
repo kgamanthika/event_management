@@ -35,10 +35,7 @@ const EventList = () => {
     navigate('/bookings');
   };
 
-  // Navigate to EventForm page for adding new event
-  const handleAddEvent = () => {
-    navigate('/add-event');
-  };
+ 
 
   // Navigate to Admin Panel page
   const handleAdminPanel = () => {
@@ -58,7 +55,6 @@ const EventList = () => {
         ))}
       </ul>
       <button onClick={handleShowBookings}>Show My Bookings</button>
-      <button onClick={handleAddEvent}>Add Event</button>
       <button onClick={handleAdminPanel}>Admin Panel</button>
     </div>
   );
