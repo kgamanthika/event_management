@@ -3,32 +3,34 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const BookingPage = () => {
-  const { eventId } = useParams(); // Get the event ID from the URL
+  const { eventId } = useParams(); // Get eventId from the URL
   const [event, setEvent] = useState(null);
 
   useEffect(() => {
-    const fetchEvent = async () => {
+    const fetchEventDetails = async () => {
       try {
+        // Fetch event details from backend using eventId
         const response = await axios.get(`http://localhost:5000/api/events/${eventId}`);
-        setEvent(response.data);
+        setEvent(response.data); // Set the event data in state
       } catch (error) {
-        console.error('Error fetching event:', error);
+        console.error('Error fetching event details:', error);
       }
     };
 
-    fetchEvent();
-  }, [eventId]);
+    fetchEventDetails();
+  }, [eventId]); // Dependency array ensures the effect runs when eventId changes
 
   if (!event) {
-    return <p>Loading event details...</p>;
+    return <div>Loading event details...</div>;
   }
 
   return (
     <div>
-      <h2>Event Details</h2>
-      <h3>{event.name}</h3>
+      <h2>{event.name}</h2>
       <p>{event.date} - {event.location}</p>
-      <button>Confirm Booking</button>
+      <p>Description: {event.description}</p> {/* Example additional field */}
+      {/* Add your booking form or booking details here */}
+      <button>Book Now</button>
     </div>
   );
 };
