@@ -1,5 +1,5 @@
 // src/components/EventList.jsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const EventList = () => {
   const [events, setEvents] = useState([]);

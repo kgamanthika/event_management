@@ -1,5 +1,5 @@
 // src/components/EventForm.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const EventForm = () => {
   const [eventData, setEventData] = useState({
