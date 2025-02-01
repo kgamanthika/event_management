@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BookingList = () => {
   const [bookings, setBookings] = useState([]);
   const userId = "679e10553233a6d0a1c03930"; // Replace with actual user ID
+  const navigate = useNavigate(); // Hook to navigate to other pages
 
   // Fetch user bookings from backend
   useEffect(() => {
@@ -16,7 +18,12 @@ const BookingList = () => {
       }
     };
     fetchBookings();
-  }, []);
+  }, [userId]);
+
+  // Function to navigate back
+  const handleBack = () => {
+    navigate(-1); // Goes back to the previous page
+  };
 
   return (
     <div>
@@ -34,6 +41,9 @@ const BookingList = () => {
       ) : (
         <p>No bookings found.</p>
       )}
+
+      {/* Back button */}
+      <button onClick={handleBack}>Back</button>
     </div>
   );
 };
