@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const BookingPage = () => {
   const { eventId } = useParams(); // Get the event ID from the URL
   const [event, setEvent] = useState(null);
+  const navigate = useNavigate(); // To navigate programmatically after booking
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -21,6 +22,20 @@ const BookingPage = () => {
     fetchEvent();
   }, [eventId]); // Re-fetch if eventId changes
 
+  const handleBooking = async () => {
+    try {
+      // Send booking request to backend
+      const response = await axios.post('http://localhost:5000/api/bookings', { eventId });
+      console.log('Booking successful:', response.data); // Log the booking response
+      alert(`Successfully booked ${event.name}!`);
+      
+      // Navigate to another page (e.g., the bookings list or homepage)
+      navigate('/');
+    } catch (error) {
+      console.error('Error booking event:', error);
+    }
+  };
+
   if (!event) {
     return <p>Loading...</p>; // Show loading message while data is being fetched
   }
@@ -31,7 +46,9 @@ const BookingPage = () => {
       <h3>{event.name}</h3>
       <p>{new Date(event.date).toLocaleDateString()}</p> {/* Convert date to a readable format */}
       <p>{event.location}</p>
-      {/* Add your booking form or any other details here */}
+      
+      {/* Add Book Now button */}
+      <button onClick={handleBooking}>Book Now</button>
     </div>
   );
 };

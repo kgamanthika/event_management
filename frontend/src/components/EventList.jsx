@@ -28,6 +28,12 @@ const EventList = () => {
     navigate(`/book/${eventId}`);
   };
 
+  // Handle navigating to the My Bookings page
+  const handleShowBookings = () => {
+    // Navigate to the My Bookings page
+    navigate('/my-bookings');
+  };
+
   return (
     <div>
       <h2>Upcoming Events</h2>
@@ -40,6 +46,7 @@ const EventList = () => {
           </li>
         ))}
       </ul>
+      <button onClick={handleShowBookings}>Show My Bookings</button> {/* Show My Bookings button */}
     </div>
   );
 };
