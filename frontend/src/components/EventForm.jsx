@@ -1,3 +1,4 @@
+import axios from 'axios'; // Make sure axios is imported for API calls
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,15 +10,27 @@ const EventForm = () => {
   });
   const navigate = useNavigate();
 
+  // Handle input changes
   const handleChange = (e) => {
     setEventData({ ...eventData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real-world app, send this data to the backend to save the event
-    console.log('Event Data:', eventData);
-    setEventData({ name: '', date: '', location: '' }); // Clear form
+    try {
+      // Send the data to the backend (or use a mock API for now)
+      const response = await axios.post('http://localhost:5000/api/events', eventData); // Replace with your backend endpoint
+      console.log('Event created:', response.data);
+
+      // Clear form data after submission
+      setEventData({ name: '', date: '', location: '' });
+
+      // Redirect to the Event List page
+      navigate('/');
+    } catch (error) {
+      console.error('Error creating event:', error);
+    }
   };
 
   // Navigate to EventList page
