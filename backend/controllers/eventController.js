@@ -6,9 +6,6 @@ const getEvents = async (req, res) => {
     res.json(events);
 };
 
-// Get a single event by ID
-const Event = require('../models/Event');
-
 
 const getEventById = async (req, res) => {
     try {
