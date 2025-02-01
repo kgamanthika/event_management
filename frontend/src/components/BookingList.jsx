@@ -32,8 +32,9 @@ const BookingList = () => {
         <ul>
           {bookings.map((booking) => (
             <li key={booking._id}>
-              <h3>{booking.eventId.name}</h3>
-              <p>Date: {new Date(booking.eventId.date).toLocaleDateString()}</p>
+              <h3>{booking.eventId.name}</h3><p>Date: {new Date(booking.eventId.date).toLocaleDateString()}</p>
+<p>Location: {booking.eventId.location}</p>
+
               <p>Status: <strong>Successfully Booked!</strong></p> {/* Force status to 'Successfully Booked!' */}
             </li>
           ))}

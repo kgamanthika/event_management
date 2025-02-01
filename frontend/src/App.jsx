@@ -1,5 +1,3 @@
-// src/App.jsx
-
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import AdminPanel from './components/AdminPanel';
 import BookingList from './components/BookingList';

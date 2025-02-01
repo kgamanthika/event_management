@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
-  const [userId] = useState("679e10553233a6d0a1c03930"); // Replace with actual user ID
+  const [userId] = useState("679e10553233a6d0a1c03930"); 
   const navigate = useNavigate();
 
   // Fetch events from backend

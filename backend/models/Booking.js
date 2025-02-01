@@ -5,12 +5,12 @@ const mongoose = require("mongoose");
 const bookingSchema = new mongoose.Schema({
     eventId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Event",  // Ensures that the eventId references the Event model
+        ref: "Event",  
         required: true,
     },
-    userId: {  // Referring to userId instead of a string
+    userId: {  
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",  // Assuming you have a User model
+        ref: "User",  
         required: true,
     },
     bookedAt: { 

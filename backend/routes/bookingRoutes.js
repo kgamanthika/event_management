@@ -27,12 +27,10 @@ router.post("/book", async (req, res) => {
   try {
     const { userId, eventId } = req.body;
 
-    // Ensure userId and eventId are provided
     if (!userId || !eventId) {
       return res.status(400).json({ message: "Missing userId or eventId" });
     }
 
-    // Check if the event is already booked by the user
     const existingBooking = await Booking.findOne({ userId, eventId });
     if (existingBooking) {
       return res.status(400).json({ message: "You have already booked this event" });
