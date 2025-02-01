@@ -1,35 +1,39 @@
-// src/components/BookingList.jsx
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const BookingList = () => {
   const [bookings, setBookings] = useState([]);
+  const userId = "679e10553233a6d0a1c03930"; // Replace with actual user ID
 
-  // Mock data for bookings
+  // Fetch user bookings from backend
   useEffect(() => {
     const fetchBookings = async () => {
-      // In real-world apps, fetch data from an API or database
-      const bookingData = [
-        { id: 1, event: 'Music Concert', user: 'John Doe', status: 'Confirmed' },
-        { id: 2, event: 'Tech Conference', user: 'Jane Smith', status: 'Pending' }
-      ];
-      setBookings(bookingData);
+      try {
+        const response = await axios.get(`http://localhost:5000/api/bookings/user/${userId}`);
+        setBookings(response.data);
+      } catch (error) {
+        console.error('Error fetching bookings:', error);
+      }
     };
-
     fetchBookings();
   }, []);
 
   return (
     <div>
       <h2>Your Bookings</h2>
-      <ul>
-        {bookings.map((booking) => (
-          <li key={booking.id}>
-            <h3>{booking.event}</h3>
-            <p>Booked by: {booking.user}</p>
-            <p>Status: {booking.status}</p>
-          </li>
-        ))}
-      </ul>
+      {bookings.length > 0 ? (
+        <ul>
+          {bookings.map((booking) => (
+            <li key={booking._id}>
+              <h3>{booking.eventId.name}</h3>
+              <p>Date: {new Date(booking.eventId.date).toLocaleDateString()}</p>
+              <p>Status: <strong>Successfully Booked!</strong></p> {/* Force status to 'Successfully Booked!' */}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No bookings found.</p>
+      )}
     </div>
   );
 };

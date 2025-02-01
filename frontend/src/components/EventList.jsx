@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
-  const [bookings, setBookings] = useState([]);
-  const userId = "679e10553233a6d0a1c03930"; 
+  const [userId] = useState("679e10553233a6d0a1c03930"); // Replace with actual user ID
+  const navigate = useNavigate();
 
-  // Fetch events from the backend
+  // Fetch events from backend
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -19,25 +20,19 @@ const EventList = () => {
     fetchEvents();
   }, []);
 
-  // Handle booking an event
+  // Handle event booking
   const handleBooking = async (eventId) => {
     try {
       const response = await axios.post("http://localhost:5000/api/bookings/book", { userId, eventId });
       alert(response.data.message); // Show success message
-      handleShowBookings(); // Refresh bookings after successful booking
     } catch (error) {
       alert(error.response?.data?.message || "Error booking event");
     }
   };
 
-  // Handle fetching and showing user bookings
-  const handleShowBookings = async () => {
-    try {
-      const response = await axios.get(`http://localhost:5000/api/bookings/user/${userId}`);
-      setBookings(response.data);
-    } catch (error) {
-      console.error('Error fetching bookings:', error);
-    }
+  // Navigate to My Bookings page
+  const handleShowBookings = () => {
+    navigate('/bookings');
   };
 
   return (
@@ -52,25 +47,7 @@ const EventList = () => {
           </li>
         ))}
       </ul>
-
       <button onClick={handleShowBookings}>Show My Bookings</button>
-
-      {/* Display bookings */}
-      {bookings.length > 0 ? (
-        <div>
-          <h3>My Booked Events</h3>
-          <ul>
-            {bookings.map((booking) => (
-              <li key={booking._id}>
-                <p>Event: {booking.eventId.name}</p>
-                <p>Date: {new Date(booking.eventId.date).toLocaleDateString()}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <p>No bookings found.</p>
-      )}
     </div>
   );
 };
