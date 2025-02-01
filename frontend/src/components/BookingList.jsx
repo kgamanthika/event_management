@@ -25,6 +25,18 @@ const BookingList = () => {
     navigate(-1); // Goes back to the previous page
   };
 
+  // Function to handle booking deletion
+  const handleDelete = async (bookingId) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/bookings/${bookingId}`);
+      alert(response.data.message); // Show success message
+      setBookings(bookings.filter((booking) => booking._id !== bookingId)); // Remove deleted booking from the list
+    } catch (error) {
+      console.error('Error deleting booking:', error);
+      alert('Error deleting booking');
+    }
+  };
+
   return (
     <div>
       <h2>Your Bookings</h2>
@@ -32,10 +44,11 @@ const BookingList = () => {
         <ul>
           {bookings.map((booking) => (
             <li key={booking._id}>
-              <h3>{booking.eventId.name}</h3><p>Date: {new Date(booking.eventId.date).toLocaleDateString()}</p>
-<p>Location: {booking.eventId.location}</p>
-
+              <h3>{booking.eventId.name}</h3>
+              <p>Date: {new Date(booking.eventId.date).toLocaleDateString()}</p>
+              <p>Location: {booking.eventId.location}</p>
               <p>Status: <strong>Successfully Booked!</strong></p> {/* Force status to 'Successfully Booked!' */}
+              <button onClick={() => handleDelete(booking._id)}>Delete Booking</button> {/* Delete button */}
             </li>
           ))}
         </ul>
