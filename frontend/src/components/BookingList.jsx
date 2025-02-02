@@ -58,78 +58,80 @@ const BookingList = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-3xl font-semibold text-red-600 mb-6 text-center">
-        Your Bookings
-      </h2>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-green-200 to-indigo-200">
+      <div className="w-full max-w-4xl p-6 bg-white shadow-lg rounded-lg">
+        <h2 className="text-3xl font-semibold text-red-600 mb-6 text-center">
+          Your Bookings
+        </h2>
 
-      {bookings.length > 0 ? (
-        <ul className="space-y-4">
-          {bookings.map((booking) => (
-            <li key={booking._id} className="p-4 bg-gray-100 rounded-md shadow-sm hover:bg-gray-200 transition-all">
-              <h3 className="text-xl font-bold text-blue-600">{booking.eventId.name}</h3>
-              <p className="text-gray-600">Date: {new Date(booking.eventId.date).toLocaleDateString()}</p>
-              <p className="text-gray-600">Location: {booking.eventId.location}</p>
-              <p className="text-green-500 font-semibold">Status: Successfully Booked!</p>
-              <button
-                onClick={() => handleDelete(booking._id)}
-                className="mt-2 px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-all"
-              >
-                Delete Booking
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-center text-gray-500">No bookings found.</p>
-      )}
+        {bookings.length > 0 ? (
+          <ul className="space-y-6">
+            {bookings.map((booking) => (
+              <li key={booking._id} className="p-6 bg-gray-50 rounded-lg shadow-md hover:bg-gray-100 transition-all">
+                <h3 className="text-xl font-bold text-blue-600 mb-2">{booking.eventId.name}</h3>
+                <p className="text-gray-700">Date: {new Date(booking.eventId.date).toLocaleDateString()}</p>
+                <p className="text-gray-700">Location: {booking.eventId.location}</p>
+                <p className="text-green-500 font-semibold mt-2">Status: Successfully Booked!</p>
+                <button
+                  onClick={() => handleDelete(booking._id)}
+                  className="mt-4 px-6 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all"
+                >
+                  Delete Booking
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-center text-gray-500">No bookings found.</p>
+        )}
 
-      <div className="text-center mt-6">
-        <button
-          onClick={handleBack}
-          className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-all"
-        >
-          Back
-        </button>
-      </div>
-
-      {/* Custom Popup Modal for Success/Error Messages */}
-      {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
-          <div
-            className={`bg-white p-6 rounded-lg shadow-lg w-96 text-center ${modalType === 'success' ? 'bg-green-100' : 'bg-red-100'}`}
+        <div className="text-center mt-8">
+          <button
+            onClick={handleBack}
+            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all"
           >
-            <h3 className={`text-xl font-semibold ${modalType === 'success' ? 'text-green-600' : 'text-red-600'}`}>
-              {modalMessage}
-            </h3>
-            <div className="mt-4 flex justify-around">
-              {modalType === 'error' ? (
-                <>
+            Back
+          </button>
+        </div>
+
+        {/* Custom Popup Modal for Success/Error Messages */}
+        {showModal && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
+            <div
+              className={`bg-white p-8 rounded-lg shadow-xl w-96 text-center ${modalType === 'success' ? 'bg-green-100' : 'bg-red-100'}`}
+            >
+              <h3 className={`text-2xl font-semibold ${modalType === 'success' ? 'text-green-600' : 'text-red-600'}`}>
+                {modalMessage}
+              </h3>
+              <div className="mt-6 flex justify-around">
+                {modalType === 'error' ? (
+                  <>
+                    <button
+                      onClick={confirmDelete} // Confirm and delete the booking
+                      className="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all"
+                    >
+                      Confirm
+                    </button>
+                    <button
+                      onClick={handleCancel} // Cancel the action (don't delete)
+                      className="px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-opacity-80 transition-all"
+                    >
+                      Cancel
+                    </button>
+                  </>
+                ) : (
                   <button
-                    onClick={confirmDelete} // Confirm and delete the booking
-                    className="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-opacity-80 transition-all"
+                    onClick={handleCancel} // Dismiss success/error message
+                    className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-opacity-80 transition-all"
                   >
                     OK
                   </button>
-                  <button
-                    onClick={handleCancel} // Cancel the action (don't delete)
-                    className="px-4 py-2 bg-gray-500 text-white font-semibold rounded-lg hover:bg-opacity-80 transition-all"
-                  >
-                    Cancel
-                  </button>
-                </>
-              ) : (
-                <button
-                  onClick={handleCancel} // Dismiss success/error message
-                  className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-opacity-80 transition-all"
-                >
-                  OK
-                </button>
-              )}
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

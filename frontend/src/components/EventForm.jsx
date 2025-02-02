@@ -52,86 +52,88 @@ const EventForm = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-3xl font-bold text-blue-800 mb-6 text-center">Create New Event</h2>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="flex flex-col">
-          <label className="text-gray-700 font-semibold mb-2" htmlFor="name">Event Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={eventData.name}
-            onChange={handleChange}
-            required
-            className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+    <div className="min-h-screen bg-gradient-to-r from-green-200 to-indigo-200 flex justify-center items-center p-6">
+      <div className="max-w-lg w-full p-8 bg-white shadow-md rounded-lg">
+        <h2 className="text-2xl font-semibold text-blue-700 mb-6 text-center">Create New Event</h2>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-semibold mb-2" htmlFor="name">Event Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={eventData.name}
+              onChange={handleChange}
+              required
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
-        <div className="flex flex-col">
-          <label className="text-gray-700 font-semibold mb-2" htmlFor="date">Date:</label>
-          <input
-            type="date"
-            name="date"
-            value={eventData.date}
-            onChange={handleChange}
-            required
-            className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-semibold mb-2" htmlFor="date">Date:</label>
+            <input
+              type="date"
+              name="date"
+              value={eventData.date}
+              onChange={handleChange}
+              required
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
-        <div className="flex flex-col">
-          <label className="text-gray-700 font-semibold mb-2" htmlFor="location">Location:</label>
-          <input
-            type="text"
-            name="location"
-            value={eventData.location}
-            onChange={handleChange}
-            required
-            className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-semibold mb-2" htmlFor="location">Location:</label>
+            <input
+              type="text"
+              name="location"
+              value={eventData.location}
+              onChange={handleChange}
+              required
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
-        <div className="flex justify-between items-center space-x-4">
+          <div className="flex justify-between items-center space-x-4">
+            <button
+              type="submit"
+              className="w-full px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none transition duration-200"
+            >
+              Create Event
+            </button>
+          </div>
+        </form>
+
+        <div className="flex justify-center mt-6">
           <button
-            type="submit"
-            className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+            onClick={handleShowEvents}
+            className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none transition duration-200"
           >
-            Create Event
+            Show Events
           </button>
         </div>
-      </form>
 
-      <div className="flex justify-center mt-6">
-        <button
-          onClick={handleShowEvents}
-          className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-300"
-        >
-          Show Events
-        </button>
-      </div>
-
-      {/* Confirmation Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">Are you sure you want to create this event?</h3>
-            <div className="flex justify-between">
-              <button
-                onClick={handleConfirm}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
-              >
-                OK
-              </button>
-              <button
-                onClick={handleCancel}
-                className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-300"
-              >
-                Cancel
-              </button>
+        {/* Confirmation Modal */}
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
+            <div className="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">Are you sure you want to create this event?</h3>
+              <div className="flex justify-between space-x-4">
+                <button
+                  onClick={handleConfirm}
+                  className="w-full px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none transition duration-200"
+                >
+                  OK
+                </button>
+                <button
+                  onClick={handleCancel}
+                  className="w-full px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none transition duration-200"
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
