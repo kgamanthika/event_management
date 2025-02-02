@@ -3,6 +3,7 @@ import AdminPanel from './components/AdminPanel';
 import BookingList from './components/BookingList';
 import EventForm from './components/EventForm';
 import EventList from './components/EventList';
+import './index.css';
 
 const App = () => {
   return (
